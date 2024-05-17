@@ -46,5 +46,16 @@ export class CategoryService{
             throw error; 
         }
     }
-}
 
+    async findOne(id:string):Promise<CartegoryEntity>{
+        try {
+            const category = await CategoryModel.findOne({id});
+            if(!category) throw Error('Error')
+            return categoryMaper.fromEntity(category);
+      
+        } catch (error) {
+            throw error; 
+        }
+    }
+
+}

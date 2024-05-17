@@ -27,11 +27,19 @@ export class CategoryController{
     }
 
     delete = (req:Request, res:Response) => {
-        //me falta el delete
+        const id = req.params.id
+        if(!Validators.validationMongoId(id)) throw Error('mongo id is not valid')
+        this.categoryServices.delete(id!)
+        .then(category => res.json(category))
+  .     catch(error => res.status(500).json(error))
     }
 
     findOne = (req:Request, res:Response) => {
-        return res.json({message:"product findOne"})
+        const id = req.params.id
+        if(!Validators.validationMongoId(id)) throw Error('mongo id is not valid')
+        this.categoryServices.findOne(id!)
+        .then(category => res.json(category))
+        .catch(error => res.status(500).json(error))  
     }
 
     findAll = (req:Request, res:Response) => {
