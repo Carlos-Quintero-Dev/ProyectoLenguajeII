@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { ROLES } from "../../../domain/enums/role.enum";
 
-const categorySchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type:String,
         required: [true, 'name Is Required']
@@ -12,6 +13,7 @@ const categorySchema = new mongoose.Schema({
         type:String,
     },
     roles:{
+        enum: Object.values(ROLES),
         type:[String],
     },
     img:{
@@ -19,4 +21,4 @@ const categorySchema = new mongoose.Schema({
     }
 })
 
-export const UserModel = mongoose.model('category',categorySchema)
+export const UserModel = mongoose.model('user',userSchema)

@@ -1,11 +1,12 @@
 export class UpdateCategoryDto{
     constructor(
+        public id: string,
         public name?:string,
         public description?:string
     ){}
 
     static update(object:{[key:string]:any}):[string?, UpdateCategoryDto?]{
-        const {name, description} = object
-        return [undefined, new UpdateCategoryDto(name, description)]
+        const {id, name, description} = object
+        return [undefined, new UpdateCategoryDto(id, name, description)]
     }
 }

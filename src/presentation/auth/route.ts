@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { AuthService } from "../../services/auth.service";
-import { UserController } from "./controller";
+import { AuthController} from "./controller";
 
-export class UserRoute{
+export class AuthRoute{
     static get route(): Router{
          const routes = Router();
          const authServices = new AuthService();
-         const controller = new UserController(authServices)
-         routes.post('/', controller.register )
-         routes.post('/', controller.login)
+         const controller = new AuthController(authServices);
+         routes.post('/register', controller.register );
+         routes.post('/login', controller.login);
          return routes;
      }
- }
+}

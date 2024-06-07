@@ -3,6 +3,7 @@ import { CategoryService } from "../../services/category.service";
 import { CreateCategoryDto } from "../../domain/dtos/category/create-category.dto";
 import { UpdateCategoryDto } from "../../domain/dtos/category/update-category.dto";
 import { Validators } from "../../config/validator";
+import { HandleError } from "../../domain/errors/handle.error";
 
 
 export class CategoryController{
@@ -13,7 +14,7 @@ export class CategoryController{
         if(error) return res.status(400).json({error})
         this.categoryServices.create(createCategory!)
         .then(category => res.json(category))
-        .catch(error => res.status(500).json(error))
+        .catch(error => HandleError.error(error, res))
     };
 
     update = (req:Request, res:Response) => {
@@ -23,15 +24,15 @@ export class CategoryController{
         if(error) return res.status(400).json({error})
         this.categoryServices.update(updateCategoryDto!, id!)
         .then(category => res.json(category))
-        .catch(error => res.status(500).json(error))
+        .catch(error => HandleError.error(error, res))
     }
 
     delete = (req:Request, res:Response) => {
         const id = req.params.id
         if(!Validators.validationMongoId(id)) throw Error('mongo id is not valid')
         this.categoryServices.delete(id!)
-        .then(category => res.json(category))
-  .     catch(error => res.status(500).json(error))
+        .then(user => res.json(user))
+        .catch(error => HandleError.error(error, res))
     }
 
     findOne = (req:Request, res:Response) => {
@@ -39,7 +40,7 @@ export class CategoryController{
         if(!Validators.validationMongoId(id)) throw Error('mongo id is not valid')
         this.categoryServices.findOne(id!)
         .then(category => res.json(category))
-        .catch(error => res.status(500).json(error))  
+        .catch(error => HandleError.error(error, res))  
     }
 
     findAll = (req:Request, res:Response) => {

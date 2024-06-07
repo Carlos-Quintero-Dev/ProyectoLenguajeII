@@ -1,13 +1,15 @@
 import { Router } from "express";
 import { ProductController } from "./controller";
+import { ProductService } from "../../services/product.service";
 
 export class ProductRoute{
    static get route(): Router{
         const routes = Router();
-        const controller = new ProductController() 
+        const productServices = new ProductService();
+        const controller = new ProductController(productServices) 
         routes.get('/', controller.findAll);
-        routes.put('/', controller.update);
-        routes.delete('/', controller.delete);
+        routes.put('/:id', controller.update);
+        routes.delete('/:id', controller.delete);
         routes.post('/', controller.create)
         return routes;
     }
